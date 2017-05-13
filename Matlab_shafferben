@@ -1,0 +1,24 @@
+Matlab code for determining DPT switching energy. The sample ranges correspond to the cursor ranges Figures 3 & 4.
+%{
+Author: Shaffebd
+This file reads specific sets of data from the CSV data table recorded
+during the DPT. The data allows switching energy to be calculated.
+%}
+
+ON = csvread('tek0000ALL.csv', 28552, 2, [28552 2 28649 3]);
+OFF = csvread('tek0001ALL.csv', 31600, 2, [31600 2 31730 3]);
+
+iON = ON(:,2);
+vON = ON(:,1);
+
+iOFF = OFF(:,2);
+vOFF = OFF(:,1);
+
+iON = iON .* 10;
+iOFF = iOFF .* 10;
+
+pON = sum(abs(iON .* vON));
+eON = pON .* 194e-9;
+
+pOFF = sum(abs(iOFF .* vOFF));
+eOFF = pOFF .* 130e-9;
